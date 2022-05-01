@@ -1,24 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useState} from 'react';
+import "./App.css";
+import Names from "./components/Names.js"
+import Form from "./components/Form.js"
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+  const [names, setNames] = useState([]);
+  const [name, setName] = useState('visitante');
+
+  const handleNameAddition = (nameData) => {
+    setName(nameData);
+    const newNome = [... names, nameData];
+    setNames(newNome);
+  }
+
+  return (  
+    <>
+      <div className='title'>
+        <h1>Hello, {name}</h1>
+      </div>
+      <div className='container form'>
+        <h2>Informe seu nome para receber um Hello personalizado</h2>
+        <Form handleNameAddition={handleNameAddition} />
+      </div>
+      <div className='container history'>
+        <h2>Histórico de nomes</h2>
+        <Names names={names}/>
+      </div>
+    </>
   );
 }
 
